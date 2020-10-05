@@ -1,5 +1,7 @@
 from flask import Flask,abort
 from flask_restful import Api, Resource, reqparse
+import mongo
+from bson.json_util import dumps, loads 
 
 app = Flask(__name__)
 api = Api(app)
@@ -31,9 +33,18 @@ class Users(Resource):
     def delete(self,name):
         del names[name]
         return '',204
+class ManageU(Resource):
+    def get(self,course):
+        data = mongo.getDataFromMongo(course)
+        if data != None:
+            del data['_id']
+            print(data)
+            return data
+        return {"error":"invalid course code"}, 400
 
 # add resource to api with endpoint /api/users
 api.add_resource(Users,"/api/users/<string:name>")
+api.add_resource(ManageU,"/api/manageu/users/<string:course>")
 
 if __name__ =="__main__":
-    app.run()
+    app.run(debug=True)
