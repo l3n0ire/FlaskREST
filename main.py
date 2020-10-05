@@ -36,4 +36,4 @@ class Users(Resource):
 api.add_resource(Users,"/api/users/<string:name>")
 
 if __name__ =="__main__":
-    app.run(debug=True)
+    app.run()
