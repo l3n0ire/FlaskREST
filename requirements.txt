@@ -2,3 +2,4 @@ Flask
 Flask-RESTful
 gunicorn
 pymongo
+dnspython
