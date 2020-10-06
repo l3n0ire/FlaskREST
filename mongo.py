@@ -155,30 +155,9 @@ def getStatusMongo(user,courseCode,description):
     
         
     
-
-def getDataFromMongo(user):
+# Gets user object from MongoDB 
+# user A String representation of the user's discord name
+def getUser(user):
     if user != "":
         return collection.find_one({"name": user})
 
-
-def printMongo(course):
-    # results is an array
-    output = ""
-    if course == "ALL":
-        courses = collection.find({})
-        for courseElement in courses:
-            output = output+courseElement["courseCode"]+": "
-            for task in courseElement["tasks"]:
-                output = output+task["desc"]+" "
-    elif course != "":
-        targetCourse = collection.find({"courseCode": course})
-        output = course+": "
-        # there should only be one course with the name course
-        # but mongodb makes me do it this way
-        for courseElement in targetCourse:
-            for task in courseElement["tasks"]:
-                output = output+" "+task["desc"]
-
-    # gives back json object
-
-    return output
